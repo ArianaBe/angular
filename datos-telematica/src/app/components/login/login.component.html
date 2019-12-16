@@ -1,0 +1,37 @@
+
+<div class="row">
+	<div class="col-4"></div>
+	<div class="col-4">
+		<div class="container">
+			<h3 *ngIf="operation=='register'">Registro</h3>
+			<h3 *ngIf="operation=='login'">Ingreso</h3>
+
+			 <div class="form-group" *ngIf="operation=='register'">
+		    <label for="inputName1">Nombre</label>
+		    <input type="text" class="form-control" [(ngModel)]="inputName1">
+		  </div>
+			<div class="form-group" *ngIf="operation=='register'">
+		    <label for="inputLastname1">Apellido</label>
+		    <input type="text" class="form-control" id="inputLastname1" aria-describedby="emailHelp" [(ngModel)]="inputLastname1">
+		  </div>
+		  <div class="form-group">
+		    <label for="inputEmail1">Correo Electrónico</label>
+		    <input type="email" class="form-control" id="inputEmail1" [(ngModel)]="inputEmail1" [(ngModel)]="inputEmail1">
+		  </div>
+		  <div class="form-group">
+		    <label for="inputPassword1">Contraseña</label>
+		    <input type="password" class="form-control" id="inputPassword1" [(ngModel)]="inputPassword1">
+		  </div>
+		  <div  class="centrar">
+		  <button type="submit" class="btn btn-primary" *ngIf="operation=='login'" (click)="login()">Ingresar</button>
+		  <button type="submit" class="btn btn-primary" *ngIf="operation=='register'" (click)="register()">Registrar</button>
+		  </div>
+		  <div  class="centrar">
+		  <button type="button" class="btn btn-link" (click)="operation='register'" *ngIf="operation=='login'">Registrate</button>
+		   <button type="button" class="btn btn-link" (click)="operation='login'" *ngIf="operation=='register'">Ya tengo cuenta</button>
+		  </div>
+		
+		</div>
+	</div>
+	<div class="col-4"></div>
+</div>
