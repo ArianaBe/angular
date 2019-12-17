@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as CanvasJS from '../../../assets/js/canvasjs.min.js';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-graph',
@@ -7,33 +8,58 @@ import * as CanvasJS from '../../../assets/js/canvasjs.min.js';
   styleUrls: ['./graph.component.css']
 })
 export class GraphComponent implements OnInit {
-
+  dataPoints: object[] = [];
+  dpsLength = 0;
+  chart: any;
   constructor() { }
 
   ngOnInit() {
-  		let chart = new CanvasJS.Chart("chartContainer", {
-  		animationEnabled: true,
-  		exportEnabled: true,
-  		title: {
-  			text: "Basic Column Chart in Angular"
-  		},
-  		data: [{
-  			type: "column",
-  			dataPoints: [
-  				{ y: 71, label: "Apple" },
-  				{ y: 55, label: "Mango" },
-  				{ y: 50, label: "Orange" },
-  				{ y: 65, label: "Banana" },
-  				{ y: 95, label: "Pineapple" },
-  				{ y: 68, label: "Pears" },
-  				{ y: 28, label: "Grapes" },
-  				{ y: 34, label: "Lychee" },
-  				{ y: 14, label: "Jackfruit" }
-  			]
-  		}]
-  	});
-  		
-  	chart.render();
-      }
 
+	  this.chart = new CanvasJS.Chart("chartContainer",{
+      exportEnabled: true,
+      title:{
+        text:""
+      },
+      data: [{
+        type: "spline",
+        dataPoints : this.dataPoints,
+      }]
+    });
+    let data = $.getJSON("https://canvasjs.com/services/data/datapoints.php?xstart=1&ystart=25&length=20&type=json&callback=?");
+    data.then(
+      (a:[])=>{
+      a.forEach(par => {
+        this.dataPoints.push({
+          x: par[0],
+          y: parseInt(par[1])
+        });
+      });
+      this.dpsLength = this.dataPoints.length;
+      this.chart.render();
+      this.updateChart();
+    });
+    
+
+  }
+   updateChart() {  
+   let data = $.getJSON("https://canvasjs.com/services/data/datapoints.php?xstart=" + (this.dpsLength + 1) + "&ystart=" + (this.dataPoints[this.dataPoints.length - 1]) + "&length=1&type=json&callback=?");
+    data.then(
+      (a:[])=>{
+        a.forEach(par =>{
+          this.dataPoints.push({
+            x: parseInt(par[0]),
+            y: parseInt(par[1])
+          })
+        })
+        this.dpsLength++;
+      });
+      
+      if (this.dataPoints.length >  20 ) {
+            this.dataPoints.shift();        
+          }
+      this.chart.render();
+      setTimeout(() => {
+        this.updateChart()
+      }, 1000);
+  }
 }

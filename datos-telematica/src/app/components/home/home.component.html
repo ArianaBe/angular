@@ -22,14 +22,15 @@
 
 
 <div class="container">
+	<h3 align="center">Sensores</h3>
 	<div class="row">
 		<div class="col-4" *ngFor="let sensor of sensors">
 			<div class="card">
-			  <img src="http://lorempixel.com/400/200" class="card-img-top" />
+			  <img [src]="sensor.img" class="card-img-top" />
 			  <div class="card-body">
-			    <h5 class="card-title">{{sensor.nombre}}</h5>
-			    <p class="card-text"></p>
-			    <a href="#" class="btn btn-primary">Gráfica</a>
+			    <h5 class="card-title">{{sensor.name}}</h5>
+			    <p class="card-text">{{sensor.description}}</p>
+			    <button routerLink="/components/graph" class="btn btn-primary">Gráfica</button>
 			  </div>
 			</div>
 		</div>
