@@ -13,12 +13,14 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FormsModule } from '@angular/forms';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AuthenticationGuard } from './guards/authentication.guard';
+import { TempComponent } from './components/temp/temp.component';
 
 const appRoutes: Routes = [
 {path: '', component: HomeComponent, canActivate: [AuthenticationGuard]},
 {path: 'components/home', component: HomeComponent, canActivate: [AuthenticationGuard]},
 {path: 'components/login', component: LoginComponent},
-{path: 'components/graph', component: GraphComponent, canActivate: [AuthenticationGuard]}
+{path: 'components/graph/:id', component: GraphComponent, canActivate: [AuthenticationGuard]}
+
 ];
 
 @NgModule({
@@ -26,7 +28,8 @@ const appRoutes: Routes = [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    GraphComponent
+    GraphComponent,
+    TempComponent
   ],
   imports: [
     BrowserModule,

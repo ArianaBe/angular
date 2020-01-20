@@ -14,10 +14,12 @@ export class HomeComponent implements OnInit {
 	user: any; 
   sensors: any;
 
-  constructor(private authService: AuthenticationService,
-  			  private router: Router,
-  			  private userService: UserService,
-          private sensorService: SensorService) { }
+  constructor(
+	  private authService: AuthenticationService,
+	  private router: Router,
+	  private userService: UserService,
+	  private sensorService: SensorService
+	) { }
 
   ngOnInit() {
     this.listsensor();
